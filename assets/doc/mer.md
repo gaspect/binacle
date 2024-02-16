@@ -1,7 +1,7 @@
-# Documentación
+# Documentaciï¿½n
 
 
-## Diagrama entidad relación
+## Diagrama entidad relaciï¿½n
 
 ````mermaid
 erDiagram
@@ -90,11 +90,11 @@ erDiagram
      }
 ````
 
-## Orden de migración
+## Orden de migraciï¿½n
 
 - [x] DOMINIO
 - [x] CLASE
-- [ ] ESCALA
+- [x] ESCALA
 - [ ] TIPO_ESCALA
 - [ ] NOC
 - [ ] INDICADOR

@@ -5,17 +5,16 @@ from .common import Database, MigrationFile
 
 
 @ui.op()
-def dominio_load_csv() -> list:
-    data = csv("assets/csv/nanda_dominio.csv")
+def escala_load_csv() -> list:
+    data = csv("assets/csv/escalas.csv", delimiter=";")
     return data
 
-
 @ui.op()
-def dominio_create_dsl() -> str:
+def escala_create_dsl() -> str:
     postgres, sql = connection()
-    postgres("CREATE TABLE IF NOT EXISTS estandares.nanda_dominio ( \n"
+    postgres("CREATE TABLE IF NOT EXISTS estandares.nanda_escala ( \n"
              "    id SERIAL PRIMARY KEY, \n"
-             "    dominio TEXT NOT NULL, \n"
+             "    codigo TEXT NOT NULL, \n"
              "    nombre TEXT NOT NULL, \n"
              "    version TEXT NOT NULL, \n"
              "    deleted BOOLEAN DEFAULT FALSE \n"
@@ -24,23 +23,23 @@ def dominio_create_dsl() -> str:
 
 
 @ui.op()
-def dominio_create_inserts(data: list) -> str:
+def escala_create_inserts(data: list) -> str:
     postgres, sql = connection()
-    for dominio_, nombre in data:
-        postgres(f"insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) "
-                 f"values ('{dominio_}', '{nombre}', '1', FALSE);")
+    for codigo, nombre, *_ in data:
+        postgres(f"insert  into  estandares.nanda_escala(codigo, nombre, version, deleted) "
+                 f"values ('{codigo}', '{nombre}', '1', FALSE);")
     return sql.getvalue()
 
 
 @ui.op()
-def dominio_make_script(dsl: str, inserts: str, migration_file: MigrationFile) -> str:
+def escala_make_script(dsl: str, inserts: str, migration_file: MigrationFile) -> str:
     with open(migration_file.fileName, mode="w", encoding="utf-8") as f:
         f.write(dsl + inserts)
     return migration_file.fileName
 
 
 @ui.op()
-def dominio_migration(script: str, database: Database) -> bool:
+def escala_migration(script: str, database: Database) -> bool:
     with open(script, mode="r", encoding="utf-8") as f:
         postgres, _ = connection(database.url)
         postgres(f.read())
@@ -49,7 +48,7 @@ def dominio_migration(script: str, database: Database) -> bool:
 
 @ui.ops()
 @ui.graph()
-def dominio_migrations():
-    dsl = dominio_create_dsl()
-    inserts = dominio_create_inserts(dominio_load_csv())
-    dominio_migration(dominio_make_script(dsl, inserts))
+def escala_migrations():
+    dsl = escala_create_dsl()
+    inserts = escala_create_inserts(escala_load_csv())
+    escala_migration(escala_make_script(dsl, inserts))
