@@ -3,6 +3,7 @@ from .clase_migration import *
 from .escala_migration import *
 from .tipo_escala_migration import *
 from .noc_migration import *
+from .indicadores import *
 from binacle.ui import ui, FilesystemIOManager
 
 

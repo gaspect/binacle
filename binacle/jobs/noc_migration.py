@@ -16,6 +16,7 @@ def noc_create_dsl() -> str:
     postgres("DROP TABLE IF EXISTS estandares.nanda_noc CASCADE;")
     postgres("CREATE TABLE IF NOT EXISTS estandares.nanda_noc ( \n"
              "    id SERIAL PRIMARY KEY, \n"
+             "    codigo TEXT NOT NULL, \n"
              "    nombre TEXT NOT NULL, \n"
              "    version TEXT NOT NULL, \n"
              "    deleted BOOLEAN DEFAULT FALSE \n"
@@ -26,9 +27,9 @@ def noc_create_dsl() -> str:
 @ui.op()
 def noc_create_inserts(data: list) -> str:
     postgres, sql = connection()
-    for  nombre, *_ in data:
-        postgres(f"insert  into  estandares.nanda_noc(nombre, version, deleted) "
-                 f"values ('{nombre}', '1', FALSE);")
+    for  codigo, nombre, *_ in data:
+        postgres(f"insert  into  estandares.nanda_noc(codigo, nombre, version, deleted) "
+                 f"values ('{codigo}', '{nombre}', '1', FALSE);")
     return sql.getvalue()
 
 

@@ -96,7 +96,7 @@ erDiagram
 - [x] ESCALA
 - [x] TIPO_ESCALA
 - [x] NOC
-- [ ] INDICADOR
+- [x] INDICADOR
 - [ ] NIC
 - [ ] ACTIVIDAD
 - [ ] DIAGNOSTICO
