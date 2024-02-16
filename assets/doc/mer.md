@@ -52,6 +52,7 @@ erDiagram
      }
      NOC{
          serial id
+         varchar codigo
          varchar nombre
          varchar version
          boolean deleted
@@ -97,7 +98,7 @@ erDiagram
 - [x] TIPO_ESCALA
 - [x] NOC
 - [x] INDICADOR
-- [ ] NIC
+- [x] NIC
 - [ ] ACTIVIDAD
 - [ ] DIAGNOSTICO
 
