@@ -1,12 +1,7 @@
 from binacle.ui import ui
 from binacle.csv import csv
 from binacle.sql import connection
-from .common import Database
-
-
-@ui.resource(name="clase_migration_file", fileName="assets/migrations/nanda_clase.sql")
-class ClaseMigrationFile:
-    fileName: str
+from .common import Database, MigrationFile
 
 
 @ui.op()
@@ -50,11 +45,11 @@ def clase_create_inserts(data, database: Database):
 
 
 @ui.op()
-def clase_make_script(dsl, data, clase_migration_file: ClaseMigrationFile):
-    with open(clase_migration_file.fileName, mode="w", encoding="utf-8") as f:
+def clase_make_script(dsl, data, migration_file: MigrationFile):
+    with open(migration_file.fileName, mode="w", encoding="utf-8") as f:
         f.write(dsl + data)
-    return ui.Output(clase_migration_file.fileName,
-                     metadata={"value": ui.MetadataValue.path(clase_migration_file.fileName)})
+    return ui.Output(migration_file.fileName,
+                     metadata={"value": ui.MetadataValue.path(migration_file.fileName)})
 
 
 @ui.op()

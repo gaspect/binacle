@@ -1,12 +1,7 @@
 from binacle.ui import ui
 from binacle.csv import csv
 from binacle.sql import connection
-from .common import Database
-
-
-@ui.resource(name="dominio_migration_file", fileName="assets/migrations/nanda_dmonio.sql")
-class DominioMigrationFile:
-    fileName: str
+from .common import Database, MigrationFile
 
 
 @ui.op()
@@ -42,11 +37,11 @@ def dominio_create_inserts(data: list) -> str:
 
 
 @ui.op()
-def dominio_make_script(dsl: str, inserts: str, dominio_migration_file: DominioMigrationFile) -> str:
-    with open(dominio_migration_file.fileName, mode="w", encoding="utf-8") as f:
+def dominio_make_script(dsl: str, inserts: str, migration_file: MigrationFile) -> str:
+    with open(migration_file.fileName, mode="w", encoding="utf-8") as f:
         f.write(dsl + inserts)
-    return ui.Output(dominio_migration_file.fileName,
-                     metadata={"value": ui.MetadataValue.path(dominio_migration_file.fileName)})
+    return ui.Output(migration_file.fileName,
+                     metadata={"value": ui.MetadataValue.path(migration_file.fileName)})
 
 
 @ui.op()
