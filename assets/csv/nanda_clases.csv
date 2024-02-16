@@ -1,0 +1,46 @@
+Clase,Nombre-Clase,Dominio
+clase1,Toma de conciencia de la salud,dominio1
+clase2,Gestión de la salud,dominio1
+clase1,Ingestión,dominio2
+clase2,Digestión,dominio2
+clase3,Absorción,dominio2
+clase4,Metabolismo,dominio2
+clase5,Hidratación,dominio2
+clase1,Función urinaria,dominio3
+clase2,Función gastrointestinal,dominio3
+clase3,Función tegumentaria,dominio3
+clase4,Función respiratoria,dominio3
+clase1,Sueño/Reposo,dominio4
+clase2,Actividad/ejercicio,dominio4
+clase3,Equilibrio de la energía,dominio4
+clase4,Respuestas cardiovasculares/pulmonares,dominio4
+clase5,Autocuidado,dominio4
+clase1,Atención,dominio5
+clase2,Orientación,dominio5
+clase3,Sensación/percepción,dominio5
+clase4,Cognición,dominio5
+clase5,Comunicación,dominio5
+clase1,Autoconcepto,dominio6
+clase2,Autoestima,dominio6
+clase3,Imagen corporal,dominio6
+clase1,Roles de cuidador,dominio7
+clase2,Relaciones familiares,dominio7
+clase3,Desempeño del rol,dominio7
+clase1,Identidad sexual,dominio8
+clase2,Función sexual,dominio8
+clase3,Reproducción,dominio8
+clase1,Respuestas postraumáticas,dominio9
+clase2,Respuestas de afrontamiento,dominio9
+clase3,Estrés neurocomportamental,dominio9
+clase1,Valores,dominio10
+clase2,Creencias,dominio10
+clase3,Congruencia entre valores/creencias/acciones,dominio10
+clase1,Infección,dominio11
+clase2,Lesión física,dominio11
+clase3,Violencia,dominio11
+clase4,Peligros del entorno,dominio11
+clase5,Procesos defensivos,dominio11
+clase6,Termorregulación,dominio11
+clase1,Confort físico,dominio12
+clase2,Confort del entorno,dominio12
+clase3,Confort social,dominio12
