@@ -5,6 +5,7 @@ from .tipo_escala_migration import *
 from .noc_migration import *
 from .indicadores import *
 from .nic_migration import *
+from .nic_actividades import *
 from binacle.ui import ui, FilesystemIOManager
 
 
