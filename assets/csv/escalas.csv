@@ -1,0 +1,16 @@
+Código-Escala;Titulo-Escala;Tipo-Uno;Tipo-Dos;Tipo-Tres;Tipo-Cuatro;Tipo-Cinco
+1;Desviación grave del rango normal hasta SIN desviación del rango normal.;Desviación grave del rango normal;Desviación sustancial del rango normal;Desviación moderada del rango normal;Desviación leve del rango normal;Sin desviación del rango normal
+2;Desde Escasa hasta Excelente.;Escasa;Justa;Buena;Muy buena;Excelente
+3;Desde Grave hasta Ninguno.;Grave;Sustancial;Moderado;Leve;Ninguno
+4;Desde Gravemente comprometido hasta NO comprometido.;Gravemente comprometido;Sustancialmente comprometido;Moderadamente comprometido;Levemente comprometido;No comprometido
+5;Desde Inadecuado hasta Completamente Adecuado.;Inadecuado;Ligeramente adecuado;Moderadamente adecuado;Sustancialmente adecuado;Completamente adecuado
+6;Desde muy Débil hasta muy Intenso.;Muy débil;Débil;Moderado;Intenso;Muy intenso
+7;Desde Ninguno hasta Extenso.;Ninguno;Escaso;Moderado;Sustancial;Extenso
+8;Desde No del todo satisfecho hasta Completamente Satisfecho.;No del todo satisfecho;Algo satisfecho;Moderadamente satisfecho;Muy satisfecho;Completamente satisfecho
+9;Desde NUNCA demostrado hasta SIEMPRE demostrado.;Nunca demostrado;Raramente demostrado;A veces demostrado;Frecuentemente demostrado;Siempre demostrado
+10;Desde NUNCA positivo hasta SIEMPRE positivo.;Nunca positivo;Raramente positivo;A veces positivo;Frecuentemente positivo;Siempre positivo
+11;Mayor de 10 hasta Ninguno.;Mayor de 10;7-9;4-6;1-3;Ninguno
+12;Desde SIEMPRE demostrado hasta NUNCA demostrado.;Siempre demostrado;Frecuentemente demostrado;A veces demostrado;Raramente demostrado;Nunca demostrado
+13;Desde Extenso hasta Ninguno;Extenso;Sustancial;Moderado;Escaso;Ninguno
+14;Desde Intenso hasta Ninguno;Intenso;Sustancial;Moderado;Ligero;Ninguno
+15;Desde Ningún conocimiento hasta Conocimiento extenso;Ningún Conocimiento;Conocimiento escaso;Conocimiento moderado;Conocimiento sustancial;Conocimiento extenso

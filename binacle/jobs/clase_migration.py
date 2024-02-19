@@ -7,7 +7,7 @@ from .common import Database, MigrationFile
 @ui.op()
 def clase_load_csv():
     data = csv("assets/csv/nanda_clases.csv")
-    return ui.Output(data, metadata={"value": ui.MetadataValue.json(data)})
+    return data
 
 
 @ui.op()
@@ -22,9 +22,7 @@ def clase_create_dsl():
              "    deleted BOOLEAN DEFAULT FALSE, \n"
              "    CONSTRAINT nanda_dominio_fk FOREIGN KEY (dominio_fk) REFERENCES estandares.nanda_dominio(id) \n"
              ");")
-    return ui.Output(sql.getvalue(), metadata={
-        "value": ui.MetadataValue.sql(sql.getvalue())
-    })
+    return sql.getvalue()
 
 
 @ui.op()
@@ -39,17 +37,14 @@ def clase_create_inserts(data, database: Database):
             pin(f"insert  into  estandares.nanda_clase(dominio_fk, clase, nombre, version, deleted) "
                 f"values ({id},'{clase}', '{nombre}', '1', FALSE);")
 
-    return ui.Output(sql.getvalue(), metadata={
-        "value": ui.MetadataValue.sql(sql.getvalue())
-    })
+    return sql.getvalue()
 
 
 @ui.op()
-def clase_make_script(dsl, data, migration_file: MigrationFile):
+def clase_make_script(dsl, inserts, migration_file: MigrationFile):
     with open(migration_file.fileName, mode="w", encoding="utf-8") as f:
-        f.write(dsl + data)
-    return ui.Output(migration_file.fileName,
-                     metadata={"value": ui.MetadataValue.path(migration_file.fileName)})
+        f.write(dsl + inserts)
+    return migration_file.fileName
 
 
 @ui.op()

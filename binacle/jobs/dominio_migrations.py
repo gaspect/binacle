@@ -7,7 +7,7 @@ from .common import Database, MigrationFile
 @ui.op()
 def dominio_load_csv() -> list:
     data = csv("assets/csv/nanda_dominio.csv")
-    return ui.Output(data, metadata={"value": ui.MetadataValue.json(data)})
+    return data
 
 
 @ui.op()
@@ -20,9 +20,7 @@ def dominio_create_dsl() -> str:
              "    version TEXT NOT NULL, \n"
              "    deleted BOOLEAN DEFAULT FALSE \n"
              ");")
-    return ui.Output(sql.getvalue(), metadata={
-        "value": ui.MetadataValue.sql(sql.getvalue())
-    })
+    return sql.getvalue()
 
 
 @ui.op()
@@ -31,17 +29,14 @@ def dominio_create_inserts(data: list) -> str:
     for dominio_, nombre in data:
         postgres(f"insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) "
                  f"values ('{dominio_}', '{nombre}', '1', FALSE);")
-    return ui.Output(sql.getvalue(), metadata={
-        "value": ui.MetadataValue.sql(sql.getvalue())
-    })
+    return sql.getvalue()
 
 
 @ui.op()
 def dominio_make_script(dsl: str, inserts: str, migration_file: MigrationFile) -> str:
     with open(migration_file.fileName, mode="w", encoding="utf-8") as f:
         f.write(dsl + inserts)
-    return ui.Output(migration_file.fileName,
-                     metadata={"value": ui.MetadataValue.path(migration_file.fileName)})
+    return migration_file.fileName
 
 
 @ui.op()

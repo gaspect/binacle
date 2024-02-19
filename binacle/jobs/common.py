@@ -6,6 +6,6 @@ class Database:
     url: str
 
 
-@ui.resource(name="migration_file", fileName="assets/migrations/v2_nanda_clase.sql")
+@ui.resource(name="migration_file", fileName="assets/migrations/version_migracion.sql")
 class MigrationFile:
     fileName: str
