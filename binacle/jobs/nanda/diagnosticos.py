@@ -33,7 +33,7 @@ def diagnosticos_dsl() -> str:
              "    CONSTRAINT nanda_clase_fk FOREIGN KEY (clase_fk) REFERENCES estandares.nanda_clase(id) \n"
              ");")
 
-    postgres("CREATE TABLE IF NOT EXISTS estandares.nanda_many_nic ( \n"
+    postgres("CREATE TABLE IF NOT EXISTS estandares.nanda_nic_nanda_diagnostico ( \n"
              "    nanda_fk INTEGER, \n"
              "    nic_fk   INTEGER, \n"
              "    CONSTRAINT nanda_rel FOREIGN KEY (nanda_fk) REFERENCES estandares.nanda_diagnostico(id), \n"
@@ -60,10 +60,10 @@ def diagnosticos_inserts(diagnosticos: list, nics: list, database: Database) -> 
 
             for nic_codigo, __, *nandas in nics:
                 if codigo in nandas:
-                    nic_result = list(pout(f"select id from estandares.nanda_nic where codigo='{codigo}' limit  1;"))
+                    nic_result = list(pout(f"select id from estandares.nanda_nic where codigo='{nic_codigo}' limit  1;"))
                     if nic_result:
                         nic_id = nic_result[0].id
-                        pin(f"insert into estandares.nanda_many_nic(nanda_fk, nic_fk)"
+                        pin(f"insert into estandares.nanda_nic_nanda_diagnostico(nanda_fk, nic_fk)"
                             f" values ({id}, {nic_id});")
     return sql.getvalue()
 
