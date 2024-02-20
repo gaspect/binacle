@@ -1,11 +1,4 @@
-from .dominio_migrations import *
-from .clase_migration import *
-from .escala_migration import *
-from .tipo_escala_migration import *
-from .noc_migration import *
-from .indicadores import *
-from .nic_migration import *
-from .nic_actividades import *
+from .nanda import *
 from binacle.ui import ui, FilesystemIOManager
 
 

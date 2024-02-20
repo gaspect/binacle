@@ -1,16 +1,20 @@
 from binacle.ui import ui
-from binacle.csv import csv
+from binacle.csv import csv as lcsv
 from binacle.sql import connection
-from .common import Database, MigrationFile
+from binacle.jobs.common import Database, migration, script, partial
+
+script = ui.op(name="INDICADORES_SCRIPT")(partial(script, file="assets/migrations/nanda/v6_nanda_indicadores.sql"))
+migration = ui.op(name="INDICADORES_MIGRACIONES")(migration)
 
 
-@ui.op()
-def indicadores_load_csv() -> list:
-    data = csv("assets/csv/indicadores.csv", delimiter=";")
+@ui.op(name="INDICADORES_CSV")
+def csv() -> list:
+    data = lcsv("assets/csv/indicadores.csv", delimiter=";")
     return data
 
-@ui.op()
-def indicadores_create_dsl() -> str:
+
+@ui.op(name="INDICADORES_DSL")
+def dsl() -> str:
     postgres, sql = connection()
     postgres("CREATE TABLE IF NOT EXISTS estandares.nanda_indicadores ( \n"
              "    id SERIAL PRIMARY KEY, \n"
@@ -26,8 +30,8 @@ def indicadores_create_dsl() -> str:
     return sql.getvalue()
 
 
-@ui.op()
-def indicadores_create_inserts(data: list, database:Database) -> str:
+@ui.op(name="INDICADORES_INSERCIONES")
+def inserts(data: list, database: Database) -> str:
     pout, _ = connection(database.url)
     pin, sql = connection()
     for codigo, nombre, escala, noc in data:
@@ -36,30 +40,13 @@ def indicadores_create_inserts(data: list, database:Database) -> str:
         if result_escala and result_noc:
             id_escala = result_escala[0].id
             id_noc = result_noc[0].id
-            
+
             pin(f"insert  into  estandares.nanda_indicadores(noc_fk, escala_fk, codigo, nombre, version, deleted) "
-                    f"values ({id_noc}, {id_escala}, '{codigo}', '{nombre}', '1', FALSE);")
+                f"values ({id_noc}, {id_escala}, '{codigo}', '{nombre}', '1', FALSE);")
     return sql.getvalue()
 
 
-@ui.op()
-def indicadores_make_script(dsl: str, inserts: str, migration_file: MigrationFile) -> str:
-    with open(migration_file.fileName, mode="w", encoding="utf-8") as f:
-        f.write(dsl + inserts)
-    return migration_file.fileName
-
-
-@ui.op()
-def indicadores_migration(script: str, database: Database) -> bool:
-    with open(script, mode="r", encoding="utf-8") as f:
-        postgres, _ = connection(database.url)
-        postgres(f.read())
-    return True
-
-
 @ui.ops()
-@ui.graph()
-def indicadores_migrations():
-    dsl = indicadores_create_dsl()
-    inserts = indicadores_create_inserts(indicadores_load_csv())
-    indicadores_migration(indicadores_make_script(dsl, inserts))
+@ui.graph(name="V6_MIGRACIONES_NANDA_INDICADORES")
+def indicadores():
+    migration(script(dsl(), inserts(csv())))

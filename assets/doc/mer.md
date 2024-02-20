@@ -1,13 +1,13 @@
-# Documentaci�n
+# Documentación
 
 
-## Diagrama entidad relaci�n
+## Diagrama entidad relación
 
 ````mermaid
 erDiagram
      DOMINIO ||--o{ CLASE: tiene
      DIAGNOSTICO }o--o{ CLASE: tiene
-     NIC ||--o{ DIAGNOSTICO: tiene
+     NIC }o--o{ DIAGNOSTICO: tiene
      NOC ||--o{ NIC: tiene
      NIC ||--o{ ACTIVIDAD: tiene      
      NOC ||--o{ INDICADOR: tiene 
@@ -35,12 +35,16 @@ erDiagram
      DIAGNOSTICO{
          serial id
          serial clase_fk
-         serial nic_fk
          varchar codigo
          varchar nombre
          varchar version
          boolean deleted
      }
+     
+%%     DIAGNOSTICO_NIC{
+%%         serial diagnostico_fk
+%%         serial nic_k
+%%     }
      
      NIC{
          serial id
@@ -99,6 +103,6 @@ erDiagram
 - [x] NOC
 - [x] INDICADOR
 - [x] NIC
-- [ ] ACTIVIDAD
-- [ ] DIAGNOSTICO
+- [x] ACTIVIDAD
+- [x] DIAGNOSTICO
 

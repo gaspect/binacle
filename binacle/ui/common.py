@@ -34,10 +34,13 @@ class _Dagster:
 
     def ops(self, **kwargs):
         def job_decorator(function):
+            """
+            :type function: object
+            """
             if isinstance(function, dagster.GraphDefinition):
                 job = function.to_job(**kwargs)
                 self._jobs.append(job)
-                return  function
+                return function
             else:
                 to_return = dagster.job(function, **kwargs)
                 self._jobs.append(to_return)
@@ -48,7 +51,15 @@ class _Dagster:
     @staticmethod
     def graph(**kwargs):
         def graph_decorator(function):
+            if "name" in kwargs:
+                name = kwargs.pop("name")
+                fname = function.__name__
+                function.__name__ = name
+                g = dagster.graph(compose_fn=function, **kwargs)
+                function.__name__ = fname
+                return g
             return dagster.graph(compose_fn=function, **kwargs)
+
         return graph_decorator
 
     def resource(self, name: str = None, middlewares: list = None, **defaults):
@@ -68,14 +79,29 @@ class _Dagster:
 
     def asset(self, **kwargs):
         def asset_decorator(function):
-            new_asset = dagster.asset(compute_fn=function, **kwargs)
+            if "name" in kwargs:
+                name = kwargs.pop("name")
+                fname = function.__name__
+                function.__name__ = name
+                new_asset = dagster.asset(compute_fn=function, **kwargs)
+                function.__name__ = fname
+            else:
+                new_asset = dagster.asset(compute_fn=function, **kwargs)
             self._assets.append(new_asset)
             return function
 
         return asset_decorator
 
-    def op(self, **kwargs):
+    @staticmethod
+    def op(**kwargs):
         def op_decorator(function):
+            if "name" in kwargs:
+                name = kwargs.pop("name")
+                fname = function.__name__
+                function.__name__ = name
+                o = dagster.op(compute_fn=function, **kwargs)
+                function.__name__ = fname
+                return o
             return dagster.op(compute_fn=function, **kwargs)
 
         return op_decorator

@@ -1,17 +1,20 @@
-from binacle.ui import ui
-from binacle.csv import csv
+from binacle.csv import csv as lcsv
 from binacle.sql import connection
-from .common import Database, MigrationFile
+from binacle.ui import ui
+from binacle.jobs.common import Database, migration, script, partial
+
+script = ui.op(name="CLASES_SCRIPT")(partial(script, file="assets/migrations/nanda/v2_nanda_clases.sql"))
+migration = ui.op(name="CLASES_MIGRACIONES")(migration)
 
 
-@ui.op()
-def clase_load_csv():
-    data = csv("assets/csv/nanda_clases.csv")
+@ui.op(name="CLASES_CSV")
+def csv():
+    data = lcsv("assets/csv/nanda_clases.csv")
     return data
 
 
-@ui.op()
-def clase_create_dsl():
+@ui.op(name="CLASES_DSL")
+def dsl():
     postgres, sql = connection()
     postgres("CREATE TABLE IF NOT EXISTS estandares.nanda_clase ( \n"
              "    id SERIAL PRIMARY KEY, \n"
@@ -25,39 +28,22 @@ def clase_create_dsl():
     return sql.getvalue()
 
 
-@ui.op()
-def clase_create_inserts(data, database: Database):
+@ui.op(name="CLASES_INSERCIONES")
+def inserts(data, database: Database):
     pout, _ = connection(database.url)
     pin, sql = connection()
 
     for clase, nombre, dominio in data:
         result = list(pout(f"select  id from estandares.nanda_dominio where dominio = '{dominio}' limit 1;"))
         if result:
-            id = result[0].id
+            dominio_id = result[0].id
             pin(f"insert  into  estandares.nanda_clase(dominio_fk, clase, nombre, version, deleted) "
-                f"values ({id},'{clase}', '{nombre}', '1', FALSE);")
+                f"values ({dominio_id},'{clase}', '{nombre}', '1', FALSE);")
 
     return sql.getvalue()
 
 
-@ui.op()
-def clase_make_script(dsl, inserts, migration_file: MigrationFile):
-    with open(migration_file.fileName, mode="w", encoding="utf-8") as f:
-        f.write(dsl + inserts)
-    return migration_file.fileName
-
-
-@ui.op()
-def clase_migration(script, database: Database):
-    with open(script, mode="r", encoding="utf-8") as f:
-        postgres, _ = connection(database.url)
-        postgres(f.read())
-    return True
-
-
 @ui.ops()
-@ui.graph()
-def clase_migrations():
-    dsl = clase_create_dsl()
-    inserts = clase_create_inserts(clase_load_csv())
-    clase_migration(clase_make_script(dsl, inserts))
+@ui.graph(name="V2_MIGRAR_NANDA_CLASES")
+def clases():
+    migration(script(dsl(), inserts(csv())))
