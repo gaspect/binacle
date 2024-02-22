@@ -1,11 +1,36 @@
 from binacle.ui import ui
 from binacle.sql import connection
-from functools import partial as builtin_partial
+from functools import partial as builtin_partial, cached_property
+from urllib import parse
 
 
 @ui.resource(name="database", url="postgresql://postgres:postgres@localhost:5432/postgres")
 class Database:
     url: str
+
+    @cached_property
+    def destructure(self):
+        return parse.urlparse(self.url)
+
+    @property
+    def name(self):
+        return self.destructure.path[1:]
+
+    @property
+    def username(self):
+        return self.destructure.username
+
+    @property
+    def password(self):
+        return self.destructure.password
+
+    @property
+    def hostname(self):
+        return self.destructure.hostname
+
+    @property
+    def port(self):
+        return self.destructure.port
 
 
 def script(dsl, inserts, file):
