@@ -5,13 +5,13 @@ from binacle.ui import ui
 from binacle.jobs.common import Database, script, partial, migration
 from binacle.sql import connection
 
-preparacion_script = ui.op(name="PREPARACION_SCRIPT")(
+preparacion_script = ui.op(name="NANDA_PREPARACION_SCRIPT")(
     partial(script, file="assets/migrations/nanda/v0_preparacion.sql"))
 preparacion_migration = ui.op(name="PREPARACION_MIGRACIONES")(migration)
 
 
-@ui.op(name="DATABASE_BACKUP")
-def database_backup(database: Database):
+@ui.op(name="NANDA_PREPARACION_SALVAR_DB")
+def preparacion_database_backup(database: Database):
     with psycopg.connect(dbname=database.name,
                          user=database.username,
                          password=database.password,
@@ -23,8 +23,8 @@ def database_backup(database: Database):
                        f'assets/backups/backup-{datetime.now()}.sql')
 
 
-@ui.op(name="OLD_NANDA_DELETE")
-def database_delete(database: Database):
+@ui.op(name="NANDA_PREPARACION_BORRAR_ANTIGUO")
+def preparacion_database_delete(database: Database):
     pout, _ = connection(database.url)
     pin, sql = connection()
 
@@ -34,8 +34,13 @@ def database_delete(database: Database):
     return sql
 
 
+@ui.op(name="NANDA_PREPARACION_DLS")
+def preparacion_dsl(database: Database):
+    return ""
+
+
 @ui.ops()
-@ui.graph(name="V0_PREPARAR_DB")
-def prepare():
-    database_backup()
-    migration(preparacion_script("", database_delete()))
+@ui.graph(name="V0_NANDA_PREPARAR_DB")
+def preparar():
+    preparacion_database_backup()
+    preparacion_migration(preparacion_script(preparacion_dsl(), preparacion_database_delete()))
