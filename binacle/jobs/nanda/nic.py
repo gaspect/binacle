@@ -29,7 +29,7 @@ def dsl() -> str:
              "    codigo TEXT NOT NULL, \n"
              "    nombre TEXT NOT NULL, \n"
              "    version TEXT NOT NULL, \n"
-             "    deleted BOOLEAN DEFAULT FALSE \n"
+             "    eliminado BOOLEAN DEFAULT FALSE \n"
              ");")
     return sql.getvalue()
 
@@ -45,7 +45,7 @@ def inserts(data_nic: list, data_noc: list, database: Database) -> str:
                 results = list(pout(f"select id from estandares.nanda_noc where codigo = '{noc_codigo}' limit 1;"))
                 if results:
                     noc_id = results[0].id
-                    pin(f"insert  into  estandares.nanda_nic(noc_fk, codigo, nombre, version, deleted) "
+                    pin(f"insert  into  estandares.nanda_nic(noc_fk, codigo, nombre, version, eliminado) "
                         f"values ({noc_id}, '{nic_codigo}', '{nic_nombre}', '1', FALSE);")
     return sql.getvalue()
 

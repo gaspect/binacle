@@ -3,18 +3,18 @@ CREATE TABLE IF NOT EXISTS estandares.nanda_dominio (
     dominio TEXT NOT NULL, 
     nombre TEXT NOT NULL, 
     version TEXT NOT NULL, 
-    deleted BOOLEAN DEFAULT FALSE 
+    eliminado BOOLEAN DEFAULT FALSE 
 );
-insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) values ('dominio1', 'PROMOCIÃN DE LA SALUD', '1', FALSE);
-insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) values ('dominio2', 'NUTRICIÃN ', '1', FALSE);
-insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) values ('dominio3', 'ELIMINACIÃN E INTERCAMBIO', '1', FALSE);
-insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) values ('dominio4', 'ACTIVIDAD/REPOSO', '1', FALSE);
-insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) values ('dominio5', 'PERCEPCIÃN/COGNICIÃN', '1', FALSE);
-insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) values ('dominio6', 'AUTOPERCEPCIÃN', '1', FALSE);
-insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) values ('dominio7', 'ROL/RELACIONES', '1', FALSE);
-insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) values ('dominio8', 'SEXUALIDAD', '1', FALSE);
-insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) values ('dominio9', 'AFRONTAMIENTO/TOLERANCIA AL ESTRÃS', '1', FALSE);
-insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) values ('dominio10', 'PRINCIPIOS VITALES', '1', FALSE);
-insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) values ('dominio11', 'SEGURIDAD/PROTECCIÃN', '1', FALSE);
-insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) values ('dominio12', 'CONFORT', '1', FALSE);
-insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) values ('dominio13', 'CRECIMIENTO/DESARROLLO', '1', FALSE);
+insert  into  estandares.nanda_dominio(dominio, nombre, version, eliminado) values ('dominio1', 'Promoción de la salud', '1', FALSE);
+insert  into  estandares.nanda_dominio(dominio, nombre, version, eliminado) values ('dominio2', 'Nutrición ', '1', FALSE);
+insert  into  estandares.nanda_dominio(dominio, nombre, version, eliminado) values ('dominio3', 'Eliminación e Intercambio', '1', FALSE);
+insert  into  estandares.nanda_dominio(dominio, nombre, version, eliminado) values ('dominio4', 'Actividad/Reposo', '1', FALSE);
+insert  into  estandares.nanda_dominio(dominio, nombre, version, eliminado) values ('dominio5', 'Percepción/Cognición', '1', FALSE);
+insert  into  estandares.nanda_dominio(dominio, nombre, version, eliminado) values ('dominio6', 'Autopercepción', '1', FALSE);
+insert  into  estandares.nanda_dominio(dominio, nombre, version, eliminado) values ('dominio7', 'Rol/Relaciones', '1', FALSE);
+insert  into  estandares.nanda_dominio(dominio, nombre, version, eliminado) values ('dominio8', 'Sexualidad', '1', FALSE);
+insert  into  estandares.nanda_dominio(dominio, nombre, version, eliminado) values ('dominio9', 'Afrontamineto/Tolerancia al Estrés', '1', FALSE);
+insert  into  estandares.nanda_dominio(dominio, nombre, version, eliminado) values ('dominio10', 'Principios Vitales', '1', FALSE);
+insert  into  estandares.nanda_dominio(dominio, nombre, version, eliminado) values ('dominio11', 'Seguridad/Protección', '1', FALSE);
+insert  into  estandares.nanda_dominio(dominio, nombre, version, eliminado) values ('dominio12', 'Confort', '1', FALSE);
+insert  into  estandares.nanda_dominio(dominio, nombre, version, eliminado) values ('dominio13', 'Crecimiento/Desarrollo', '1', FALSE);

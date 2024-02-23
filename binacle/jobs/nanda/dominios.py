@@ -21,7 +21,7 @@ def dsl() -> str:
              "    dominio TEXT NOT NULL, \n"
              "    nombre TEXT NOT NULL, \n"
              "    version TEXT NOT NULL, \n"
-             "    deleted BOOLEAN DEFAULT FALSE \n"
+             "    eliminado BOOLEAN DEFAULT FALSE \n"
              ");")
     return sql.getvalue()
 
@@ -30,7 +30,7 @@ def dsl() -> str:
 def inserts(data: list) -> str:
     postgres, sql = connection()
     for dominio_, nombre in data:
-        postgres(f"insert  into  estandares.nanda_dominio(dominio, nombre, version, deleted) "
+        postgres(f"insert  into  estandares.nanda_dominio(dominio, nombre, version, eliminado) "
                  f"values ('{dominio_}', '{nombre}', '1', FALSE);")
     return sql.getvalue()
 

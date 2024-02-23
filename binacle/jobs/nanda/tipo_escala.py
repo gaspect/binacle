@@ -22,7 +22,7 @@ def dsl() -> str:
              "    codigo TEXT NOT NULL, \n"
              "    nombre TEXT NOT NULL, \n"
              "    version TEXT NOT NULL, \n"
-             "    deleted BOOLEAN DEFAULT FALSE, \n"
+             "    eliminado BOOLEAN DEFAULT FALSE, \n"
              "    CONSTRAINT nanda_escala_fk FOREIGN KEY (escala_fk) REFERENCES estandares.nanda_escala(id) \n"
              ");")
     return sql.getvalue()
@@ -36,7 +36,7 @@ def inserts(data: list, database: Database) -> str:
         result = list(pout(f"select  id from estandares.nanda_escala where codigo = '{codigo}' limit 1;"))
         if result:
             id = result[0].id
-            pin(f"insert  into  estandares.nanda_tipo_escala(escala_fk, codigo, nombre, version, deleted) "
+            pin(f"insert  into  estandares.nanda_tipo_escala(escala_fk, codigo, nombre, version, eliminado) "
                 f"values ('{id}', '{codigo}', '{nombre}', '1', FALSE);")
     return sql.getvalue()
 

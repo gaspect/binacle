@@ -23,7 +23,7 @@ def actividades_dsl() -> str:
              "    codigo TEXT NOT NULL, \n"
              "    nombre TEXT NOT NULL, \n"
              "    version TEXT NOT NULL, \n"
-             "    deleted BOOLEAN DEFAULT FALSE, \n"
+             "    eliminado BOOLEAN DEFAULT FALSE, \n"
              "    CONSTRAINT nanda_nic_fk FOREIGN KEY (nic_fk) REFERENCES estandares.nanda_nic(id) \n"
              ");")
     return sql.getvalue()
@@ -38,8 +38,8 @@ def actividades_inserts(data: list, database: Database) -> str:
         if result_nic:
             nic_id = result_nic[0].id
             scaped_name = nombre.replace("'", "`")
-            pin(f"insert  into  estandares.nanda_nic_actividades(nic_fk, codigo, nombre, version, deleted) "
-                f"values ({nic_id}, '{codigo}', E'{scaped_name}', '1', FALSE);")
+            pin(f"insert  into  estandares.nanda_nic_actividades(nic_fk, codigo, nombre, version, eliminado) "
+                f"values ({nic_id}, '{codigo}', '{scaped_name}', '1', FALSE);")
     return sql.getvalue()
 
 
