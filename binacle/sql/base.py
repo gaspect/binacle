@@ -1,9 +1,10 @@
 from io import StringIO
 from sqlalchemy import create_engine
 from sqlalchemy import text
+import typing
 
 
-def connection(url=None):
+def connection(url=None) -> typing.Tuple[typing.Callable, StringIO]:
     sql_store = StringIO()
 
     def executor(query):

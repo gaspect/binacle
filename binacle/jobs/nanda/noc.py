@@ -22,7 +22,7 @@ def dsl() -> str:
              "    codigo TEXT NOT NULL, \n"
              "    nombre TEXT NOT NULL, \n"
              "    version TEXT NOT NULL, \n"
-             "    deleted BOOLEAN DEFAULT FALSE \n"
+             "    eliminado BOOLEAN DEFAULT FALSE \n"
              ");")
     return sql.getvalue()
 
@@ -31,7 +31,7 @@ def dsl() -> str:
 def inserts(data: list) -> str:
     postgres, sql = connection()
     for codigo, nombre, *_ in data:
-        postgres(f"insert  into  estandares.nanda_noc(codigo, nombre, version, deleted) "
+        postgres(f"insert  into  estandares.nanda_noc(codigo, nombre, version, eliminado) "
                  f"values ('{codigo}', '{nombre}', '1', FALSE);")
     return sql.getvalue()
 

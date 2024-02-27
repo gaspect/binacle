@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS estandares.nanda_tipo_escala CASCADE;
+DROP TABLE IF EXISTS estandares.nanda_dominio CASCADE;
+DROP TABLE IF EXISTS estandares.nanda_clase CASCADE;
+DROP TABLE IF EXISTS estandares.nanda_escala CASCADE;
+DROP TABLE IF EXISTS estandares.nanda_indicadores CASCADE;
+DROP TABLE IF EXISTS estandares.nanda_noc CASCADE;
+DROP TABLE IF EXISTS estandares.nanda_nic CASCADE;
+DROP TABLE IF EXISTS estandares.nanda_nic_actividades CASCADE;
+DROP TABLE IF EXISTS estandares.nanda_diagnostico CASCADE;
+DROP TABLE IF EXISTS estandares.nanda_nic_nanda_diagnostico CASCADE;

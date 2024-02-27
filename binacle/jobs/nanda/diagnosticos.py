@@ -4,7 +4,7 @@ from binacle.sql import connection
 from binacle.jobs.common import Database, migration, script, partial
 
 diagnosticos_script = ui.op(name="DIAGNOSTICOS_SCRIPT")(
-    partial(script, file="assets/migrations/nanda/v9_diagnosticos.sql"))
+    partial(script, file="assets/migrations/nanda/v9_nanda_diagnosticos.sql"))
 diagnosticos_migration = ui.op(name="DIAGNOSTICOS_MIGRACIONES")(migration)
 
 
@@ -29,7 +29,7 @@ def diagnosticos_dsl() -> str:
              "    codigo TEXT NOT NULL, \n"
              "    nombre TEXT NOT NULL, \n"
              "    version TEXT NOT NULL, \n"
-             "    deleted BOOLEAN DEFAULT FALSE, \n"
+             "    eliminado BOOLEAN DEFAULT FALSE, \n"
              "    CONSTRAINT nanda_clase_fk FOREIGN KEY (clase_fk) REFERENCES estandares.nanda_clase(id) \n"
              ");")
 
@@ -55,7 +55,7 @@ def diagnosticos_inserts(diagnosticos: list, nics: list, database: Database) -> 
                  f"dominio.dominio='{dominio}' limit 1;"))
         if clase_result:
             clase_id = clase_result[0].id
-            pin(f"insert  into  estandares.nanda_diagnostico(id, clase_fk, codigo, nombre, version, deleted) "
+            pin(f"insert  into  estandares.nanda_diagnostico(id, clase_fk, codigo, nombre, version, eliminado) "
                 f"values ({id}, {clase_id}, '{codigo}', '{nombre}', '1', FALSE);")
 
             for nic_codigo, __, *nandas in nics:

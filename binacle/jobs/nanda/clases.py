@@ -22,7 +22,7 @@ def dsl():
              "    clase TEXT NOT NULL, \n"
              "    nombre TEXT NOT NULL, \n"
              "    version TEXT NOT NULL, \n"
-             "    deleted BOOLEAN DEFAULT FALSE, \n"
+             "    eliminado BOOLEAN DEFAULT FALSE, \n"
              "    CONSTRAINT nanda_dominio_fk FOREIGN KEY (dominio_fk) REFERENCES estandares.nanda_dominio(id) \n"
              ");")
     return sql.getvalue()
@@ -37,7 +37,7 @@ def inserts(data, database: Database):
         result = list(pout(f"select  id from estandares.nanda_dominio where dominio = '{dominio}' limit 1;"))
         if result:
             dominio_id = result[0].id
-            pin(f"insert  into  estandares.nanda_clase(dominio_fk, clase, nombre, version, deleted) "
+            pin(f"insert  into  estandares.nanda_clase(dominio_fk, clase, nombre, version, eliminado) "
                 f"values ({dominio_id},'{clase}', '{nombre}', '1', FALSE);")
 
     return sql.getvalue()
